@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.animate-scroll {
+          animation: scrollUp 65s linear forwards;
+        }
+
+@keyframes scrollUp {
+    0% {
+    transform: translateY(30%);
+    }
+    100% {
+    transform: translateY(-100%);
+    }
+}

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../App.css'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
@@ -11,8 +12,8 @@ const Header = () => {
 
       <nav className="ml-20">
         <ul className="flex items-center space-x-8 text-white font-medium chelsea-market-regular">
-          <li className="cursor-pointer hover:underline">Home</li>
-          <li className="cursor-pointer hover:underline">About</li>
+          <li className="cursor-pointer hover:underline"><a href='./'>Home</a></li>
+          <li className="cursor-pointer hover:underline"><a href='./About'>About</a></li>
           <li className="cursor-pointer hover:underline">Wellness</li>
           <li className="cursor-pointer hover:underline">Contact</li>
         </ul>

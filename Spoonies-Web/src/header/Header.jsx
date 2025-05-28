@@ -19,7 +19,7 @@ const Header = () => {
         </ul>
       </nav>
       <div className='ml-auto'>
-        <button className='mr-10 text-white chelsea-market-regular'>Log In</button>
+        <button className='mr-10 text-white chelsea-market-regular'><a href='./login'>Log In</a></button>
         <button className='mr-10 p-2 px-4 text-white chelsea-market-regular bg-amber-400 rounded-3xl'>Sign Up</button>
       </div>
     </div>

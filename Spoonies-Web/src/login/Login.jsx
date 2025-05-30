@@ -6,28 +6,44 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
+  // eslint-disable-next-line no-unused-vars
   const nav = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState('');
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    // eslint-disable-next-line no-unused-vars
+    const handleLogin = async (e) => {
+      e.preventDefault();
 
-    try{ 
-      await signInWithEmailAndPassword(auth, email, password);
+      try{ 
+        await signInWithEmailAndPassword(auth, email, password);
 
+      }
+      catch (err) {
+        switch(err.code){
+        case 'auth/email-already-in-use':
+          setError("An account with this email already exists!");
+          break;
+        case 'auth/wrong-password':
+          setError("That email or password is incorrect");
+          break;
+        case 'auth/invalid-email':
+          setError("That email or password is incorrect");
+          break;
+      }
     }
-    catch (err) {
-      setError(err.message);
-    }
-  }
 
-  return (
-    <div className='bg-blue-300'>
+    return (
+      <div className='bg-blue-300'>
         <div className='min-h-[calc(100vh-56px)] flex justify-center items-center'>
-          <form className='bg-blue-500 rounded-xl w-1/2 flex flex-col'>
-              <h1 className='flex justify-center text-2xl mt-10'>Log-In Here</h1>
+          <form 
+            className='bg-blue-500 rounded-xl w-1/2 flex flex-col'
+            onSubmit={handleLogin}>
+              <h1 className='flex justify-center text-2xl mt-10'>
+                  Log-In Here
+              </h1>
               <div className='mt-10 flex justify-center'>
                 <label className='mr-2'>Username:</label>
                 <input 
@@ -42,7 +58,7 @@ const Login = () => {
                 <input 
                   type='password'
                   value={password}
-                  onChange={(e) => e.setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   className='w-3/4 p-2 rounded-sm bg-white cursor-text'/>
               </div>
@@ -50,14 +66,15 @@ const Login = () => {
                 <button 
                   type='submit'
                   className=' bg-blue-300 hover:bg-amber-400 text-white px-4 py-2 rounded-2xl' 
-                  onSubmit={handleLogin}>
-                    Login
-                  </button>
+                >
+                  Login
+                </button>
               </div>
           </form>
         </div>
-    </div>
-  )
+      </div>
+    )
+  }
 }
 
 export default Login

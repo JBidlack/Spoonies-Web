@@ -23,15 +23,15 @@ const Login = () => {
       }
       catch (err) {
         switch(err.code){
-        case 'auth/email-already-in-use':
-          setError("An account with this email already exists!");
-          break;
-        case 'auth/wrong-password':
-          setError("That email or password is incorrect");
-          break;
-        case 'auth/invalid-email':
-          setError("That email or password is incorrect");
-          break;
+          case 'auth/user-disabled':
+            setError("Your account has been disabled. Please contact an administrator.");
+            break;
+          case 'auth/wrong-password':
+            setError("That email or password is incorrect");
+            break;
+          case 'auth/invalid-email':
+            setError("That email or password is incorrect");
+            break;
       }
     }
 

@@ -1,6 +1,6 @@
 import '../App.css';
 import { auth } from  '../firebase/firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,7 +18,11 @@ const Login = () => {
       e.preventDefault();
 
       try{ 
-        await signInWithEmailAndPassword(auth, email, password);
+        setPersistence(auth, browserSessionPersistence);
+        await signInWithEmailAndPassword(auth, email, password)
+            .then((credential) => {
+              const user = credential.user;
+            })
 
       }
       catch (err) {
@@ -32,6 +36,7 @@ const Login = () => {
           case 'auth/invalid-email':
             setError("That email or password is incorrect");
             break;
+        }
       }
     }
 
@@ -75,6 +80,6 @@ const Login = () => {
       </div>
     )
   }
-}
+
 
 export default Login

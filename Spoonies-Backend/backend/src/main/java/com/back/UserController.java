@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -40,7 +40,7 @@ public class UserController {
         return userDataRepo.findUserById(user);
     }
 
-    @PostMapping
+    @PostMapping("/newUser")
     public UserData putUserData(@RequestBody UserData data, HttpServletRequest request){
         String user = (String) request.getAttribute("uid");
         data.setUid(user);

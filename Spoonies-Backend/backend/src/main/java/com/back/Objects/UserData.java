@@ -1,6 +1,7 @@
 package com.back.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user_data")
@@ -8,10 +9,15 @@ public class UserData {
 
     @Id
     private String Id;
+
+    @Indexed(unique = true)
     private String Uid;
+
     private String AccountType;
     private int DailyTotal;
-    
+
+
+// Getters abd Setters
     public String getId() {
         return Id;
     }

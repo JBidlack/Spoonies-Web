@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom'
 const Header = () => {
   return (
     <div className=' min-w-screen max-h-14 bg-blue-600 flex flex-row items-center'>
+{/* Create a temp logo as a place holder */}
+      <div>
+          <img className='max-h-14 p-2' src='/templogo.png'/>
+      </div>
 
-            <div>
-                <img className='max-h-14 p-2' src='/templogo.png'/>
-            </div>
-
+{/* Currently all links are created as an unordered list w/ anchor points to their respective pages */}
       <nav className="ml-20">
         <ul className="flex items-center space-x-8 text-white font-medium chelsea-market-regular">
           <li className="cursor-pointer hover:underline"><a href='./'>Home</a></li>

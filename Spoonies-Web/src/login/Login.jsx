@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import '../App.css';
 import { auth } from  '../firebase/firebase'
 import { browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth';
@@ -17,13 +18,20 @@ const Login = () => {
     const handleLogin = async (e) => {
       e.preventDefault();
 
-      try{ 
+      try{
+        setError(''); 
         setPersistence(auth, browserSessionPersistence);
+
         await signInWithEmailAndPassword(auth, email, password)
             .then((credential) => {
-              const user = credential.user;
-            })
+              const userCred = credential.user;
+              console.log(userCred.accessToken);
+              if (userCred.accessToken){
+                nav('/dashboard', userCred.accessToken);
+              }
+            });
 
+        
       }
       catch (err) {
         switch(err.code){
@@ -33,7 +41,7 @@ const Login = () => {
           case 'auth/wrong-password':
             setError("That email or password is incorrect");
             break;
-          case 'auth/invalid-email':
+          case 'auth/invalid-credential':
             setError("That email or password is incorrect");
             break;
         }
@@ -44,28 +52,29 @@ const Login = () => {
       <div className='bg-blue-300'>
         <div className='min-h-[calc(100vh-56px)] flex justify-center items-center'>
           <form 
-            className='bg-blue-500 rounded-xl w-1/2 flex flex-col'
+            className='bg-blue-500 rounded-xl w-1/3 flex flex-col'
             onSubmit={handleLogin}>
               <h1 className='flex justify-center text-2xl mt-10'>
                   Log-In Here
               </h1>
+              {error && <span className='text-lg text-red-600'>{error}</span>}
               <div className='mt-10 flex justify-center'>
-                <label className='mr-2'>Username:</label>
+                <label className='mr-2 content-center-safe'>Username:</label>
                 <input 
                   type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className='w-3/4 p-2 rounded-sm bg-white cursor-text'/>
+                  className=' my-6 p-2 rounded-sm bg-white cursor-text'/>
               </div>
-              <div className='mt-4 mb-8 flex justify-center'>
-                <label className='mr-2'>Password:</label>
+              <div className='mb-8 flex justify-center'>
+                <label className='mr-2 content-center-safe'>Password:</label>
                 <input 
                   type='password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className='w-3/4 p-2 rounded-sm bg-white cursor-text'/>
+                  className='my-6 p-2 rounded-sm bg-white cursor-text'/>
               </div>
               <div className='flex justify-center mb-10'>
                 <button 
